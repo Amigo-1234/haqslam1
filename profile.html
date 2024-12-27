@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: "Raleway", sans-serif;
+      background-color: #f7f7f7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .card {
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+      transition: 0.3s;
+      width: 40%;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .card:hover {
+      box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    }
+
+    .container {
+      padding: 16px;
+      text-align: center;
+    }
+
+    .profile-pic {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      margin-bottom: 20px;
+      object-fit: cover;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    .upload-btn {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .upload-btn:hover {
+      background-color: #45a049;
+    }
+
+    .upload-info {
+      font-size: 14px;
+      color: #888;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Profile</h2>
+
+  <div class="card">
+    <!-- Profile Image -->
+    <img id="profile-pic" src="img_avatar.png" alt="Avatar" class="profile-pic">
+    
+    <div class="container">
+      <h4><b id="profile-name">John Doe</b></h4>
+      <p id="profile-email">Email: johndoe@example.com</p>
+      <p id="profile-username">Username: johndoe</p>
+
+      <!-- Upload Image Section -->
+      <input type="file" id="file-input" onchange="previewImage()">
+      <label for="file-input" class="upload-btn">Upload New Picture</label>
+      <p class="upload-info">Click to upload a new profile picture</p>
+    </div>
+  </div>
+
+  <script>
+    // Function to preview the uploaded image
+    function previewImage() {
+      const fileInput = document.getElementById('file-input');
+      const file = fileInput.files[0];
+      const reader = new FileReader();
+
+      reader.onload = function(e) {
+        const profilePic = document.getElementById('profile-pic');
+        profilePic.src = e.target.result;
+      }
+
+      if (file) {
+        reader.readAsDataURL(file);
+      }
+    }
+
+    // Fetch user data from localStorage
+    const username = localStorage.getItem('username');
+    const name = localStorage.getItem('name');
+    const email = localStorage.getItem('email');
+
+    // Display user data on profile page
+    document.getElementById('profile-name').textContent = name;
+    document.getElementById('profile-email').textContent = `Email: ${email}`;
+    document.getElementById('profile-username').textContent = `Username: ${username}`;
+  </script>
+
+</body>
+</html>
